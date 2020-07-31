@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>bus-core-api</groupId>
+    <artifactId>bus-core-api</artifactId>
+<!--    <version>1.0-SNAPSHOT</version>-->
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- 指定maven各阶段使用的编码格式 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <encoding>UTF-8</encoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>4.3.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>4.3.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.3.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-messaging</artifactId>
+                <version>4.3.2.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>4.3.2.RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.1.7.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.3.7.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>local-repo-release</id>
+            <name>GitHub Release</name>
+            <url>file://${project.basedir}/maven-repo-release</url>
+        </repository>
+        <snapshotRepository>
+            <id>local-repo-snapshot</id>
+            <name>GitHub Snapshot</name>
+            <url>file://${project.basedir}/maven-repo-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <build>
+        <plugins>
+<!--            <plugin>-->
+<!--                <artifactId>maven-invoker-plugin</artifactId>-->
+<!--                <version>2.0.0</version>-->
+<!--                <configuration>-->
+<!--                    <debug>true</debug>-->
+<!--                    &lt;!&ndash; Directory to search for integration tests.-->
+<!--                    这里没有代码特别需要跑集成测试的代码，而是直接指定了整个目录下的所有文件。-->
+<!--                     不然src/it就表示只跑这个目录下的文件&ndash;&gt;-->
+<!--                    <projectsDirectory>C:/Users/86181/Desktop/MVN</projectsDirectory>-->
+<!--&lt;!&ndash;                    <projectsDirectory>src/it</projectsDirectory>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>&ndash;&gt;-->
+<!--                    &lt;!&ndash; This tells the plugin that the project utility-plugin/pom.xml must be run-->
+<!--                     before the other projects selected by the pattern */pom.xml. Please note that-->
+<!--                     although the pattern */pom.xml also matches the path utility-plugin/pom.xml,-->
+<!--                     this project will not be run twice. In other words, any project selected by both-->
+<!--                     <setupIncludes> and <pomIncludes> will only be run once, namely during the setup phase. &ndash;&gt;-->
+<!--                    <setupIncludes>-->
+<!--                        <setupInclude>project1/pom.xml</setupInclude>-->
+<!--                    </setupIncludes>-->
+<!--                    &lt;!&ndash; 指定哪些目录下的pom文件需要构建 &ndash;&gt;-->
+<!--                    <pomIncludes>-->
+<!--                        <pomInclude>project/pom.xml</pomInclude>-->
+<!--                    </pomIncludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>id-integration-test</id>-->
+<!--                        &lt;!&ndash; The run goal of that plugin binds by default to the Maven phase integration-test. Since you did not specify a phase, it keeps that default. Looking at the lifecyle reference,-->
+<!--                        you can see that the integration-test phase comes after the package phase. Therefore, when you run mvn package, Maven does not execute the integration-test phase, hence the plugin is never invoked.-->
+<!--                        If you want to invoke that phase, you can run mvn install or mvn verify (or any phase that comes after the integration-test, this phase included).-->
+<!--                        Another solution would be to specify another phase inside the configuration of the maven-invoker-plugin (like test), but I recommend that you keep the default. &ndash;&gt;-->
+<!--                        <phase>integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <!-- 使用spring-boot-maven-plugin插件将项目依赖的jar包打进项目jar包中，不然编译打包成功的jar包不能正常运行 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.4.RELEASE</version>
+                <configuration>
+                    <mainClass>algorithm.MaxSubSum</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
