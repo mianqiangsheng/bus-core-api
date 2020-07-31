@@ -73,10 +73,15 @@
     </dependencies>
 
     <distributionManagement>
+<!--        <repository>-->
+<!--            <id>local-repo-release</id>-->
+<!--            <name>GitHub Release</name>-->
+<!--            <url>file://${project.basedir}/maven-repo-release</url>-->
+<!--        </repository>-->
         <repository>
-            <id>local-repo-release</id>
-            <name>GitHub Release</name>
-            <url>file://${project.basedir}/maven-repo-release</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/mianqiangsheng/bus-core-api</url>
         </repository>
         <snapshotRepository>
             <id>local-repo-snapshot</id>
